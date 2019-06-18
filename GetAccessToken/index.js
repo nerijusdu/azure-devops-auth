@@ -1,15 +1,19 @@
 const qs = require('querystring');
 const api = require('../Shared/api');
+const cors = require('../Shared/cors');
 
 module.exports = async (context, req) => {
-    context.log('Request to GetAccessToken');
+    context.log(`Request to GetAccessToken ${req.method}`);
+
+    cors.prepareResponse(context);
+    if (req.method.toLowerCase() === 'options') {
+      return;
+    }
 
     if (!req.body || !req.body.code || !req.body.callbackUrl) {
-      context.res = {
-        body: {
-          success: false,
-          message: 'Please provide authorization code and callback url'
-        }
+      context.res.body = {
+        success: false,
+        message: 'Please provide refresh token and callback url'
       };
       return;
     }
@@ -29,7 +33,5 @@ module.exports = async (context, req) => {
       })
     });
 
-    context.res = {
-      body: result
-    }
+    context.res.body = result;
 };
