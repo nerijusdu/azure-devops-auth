@@ -1,4 +1,9 @@
-# Backend authentification service for [sprint-board-extension](https://github.com/nerijusdu/sprint-board-extension)
+# Backend authentification service for Azure DevOps
+Used in [sprint-board-extension](https://github.com/nerijusdu/sprint-board-extension)
+
+## Setup
+- Create Functions App in azure portal
+- Add `AzureAppSecret` app setting (App client secret that is registered in Azure DevOps)
 
 ## Endpoints
 
@@ -21,8 +26,7 @@
   }
   ```
 
-### Shared
-#### Response:
+### Response:
 ```
 {
   "success": true,
@@ -36,7 +40,7 @@
 }
 ```
 
-#### Response if error:
+### Response if error:
 ```
 {
   "success": false,
@@ -46,3 +50,6 @@
   }
 }
 ```
+
+### Troubleshooting
+- Don't forget to add your domain to CORS policy in your functions app.
